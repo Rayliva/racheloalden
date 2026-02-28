@@ -22,6 +22,7 @@
       <p class="hero-subtitle">I build things that are fun to play and delightful to use.</p>
       <div class="hero-buttons">
         <a href="#about" class="btn btn-secondary">About Me</a>
+        <a href="#timeline" class="btn btn-secondary">My Journey</a>
         <a href="#portfolio" class="btn btn-primary">See My Work</a>
       </div>
     </div>
@@ -42,106 +43,197 @@
           What started as curiosity became a passion for crafting experiences that feel both polished and playful.
         </p>
         <p>
-          These days, I spend my time building games and web experiences that make people smile. 
-          I believe great software should feel effortless to use and rewarding to explore. 
-          When I'm not coding, you'll find me sketching, exploring new tools, or hunting for the perfect cup of tea.
+          Beyond coding, I'm a <strong>painter</strong> and <strong>photographer</strong>—always finding new ways to capture and create. 
+          I'm also a <strong>leader</strong>: I serve as President of my family reunion and Vice President of the DEI (Diversity, Equity & Inclusion) committee at Gateway. 
+          I love to learn, and as a result I've picked up a variety of skills that help me bring fresh perspectives to everything I do.
         </p>
         <p>
           I'm always excited to collaborate on creative projects. Let's build something wonderful together.
         </p>
       </div>
-    </div>
 
-    <!-- Gateway Internship -->
-    <div class="story-section">
-      <div class="story-content">
-        <h3 class="story-title">Internship at Gateway</h3>
-        <p>
-          I spent a summer interning at Gateway Industrial Systems, where I worked alongside an amazing team of interns. 
-          We learned the ropes together, tackled real-world projects, and even left our mark—literally—with a whiteboard 
-          that read "THE INTERNS were HERE." It was a formative experience that taught me how software development 
-          works in the real world.
-        </p>
-      </div>
-      <div class="story-gallery" data-gallery="gateway">
-        <div class="gallery-main">
-          <img src="/public/images/gateway-group.png" alt="Intern team in front of Gateway building" class="gallery-active" />
+      <!-- About Me Visual Gallery: President photo (left) + Carousels (right) -->
+      <div class="about-gallery">
+        <div class="about-gallery-left">
+          <div class="about-visual">
+            <img src="/public/images/family-reunion-president.png" alt="Rachel as president of family reunion" />
+          </div>
+          <p class="about-gallery-caption">President of my family reunion</p>
         </div>
-        <div class="gallery-thumbs">
-          <button type="button" class="gallery-thumb active" data-src="/public/images/gateway-group.png" aria-label="View team photo">
-            <img src="/public/images/gateway-group.png" alt="" />
-          </button>
-          <button type="button" class="gallery-thumb" data-src="/public/images/gateway-interns.png" aria-label="View intern group">
-            <img src="/public/images/gateway-interns.png" alt="" />
-          </button>
-          <button type="button" class="gallery-thumb" data-src="/public/images/interns-whiteboard.png" aria-label="View whiteboard">
-            <img src="/public/images/interns-whiteboard.png" alt="" />
-          </button>
+        <div class="about-gallery-right">
+          <div class="about-carousel-section">
+            <h4 class="about-carousel-label">Paintings</h4>
+            <div class="paintings-wall">
+              <div class="painting-frame painting-frame-1">
+                <span class="painting-frame-hanger" aria-hidden="true"></span>
+                <div class="painting-frame-inner">
+                  <img src="/public/images/orangepainting.png" alt="Watercolor painting of oranges" />
+                </div>
+              </div>
+              <div class="painting-frame painting-frame-2">
+                <span class="painting-frame-hanger" aria-hidden="true"></span>
+                <div class="painting-frame-inner">
+                  <img src="/public/images/lemonpainting.png" alt="Painting of lemons" />
+                </div>
+              </div>
+              <div class="painting-frame painting-frame-3">
+                <span class="painting-frame-hanger" aria-hidden="true"></span>
+                <div class="painting-frame-inner">
+                  <img src="/public/images/csgopainting.png" alt="Painting inspired by Counter-Strike Inferno map" />
+                </div>
+              </div>
+              <div class="painting-frame painting-frame-4">
+                <span class="painting-frame-hanger" aria-hidden="true"></span>
+                <div class="painting-frame-inner">
+                  <img src="/public/images/chairpainting.png" alt="Watercolor painting of a blue chair" />
+                </div>
+              </div>
+              <div class="painting-frame painting-frame-5">
+                <span class="painting-frame-hanger" aria-hidden="true"></span>
+                <div class="painting-frame-inner">
+                  <img src="/public/images/applepainting.png" alt="Painting of a red apple" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-carousel-section">
+            <h4 class="about-carousel-label">Photography</h4>
+            <div class="polaroid-wall" data-polaroid-wall>
+              <div class="polaroid" data-polaroid>
+                <div class="polaroid-inner">
+                  <img src="/public/images/lacroixphoto.png" alt="La Croix cans on the beach" />
+                </div>
+              </div>
+              <div class="polaroid" data-polaroid>
+                <div class="polaroid-inner">
+                  <img src="/public/images/trainphoto.png" alt="Snow-dusted train at station" />
+                </div>
+              </div>
+              <div class="polaroid" data-polaroid>
+                <div class="polaroid-inner">
+                  <img src="/public/images/giraffephoto.png" alt="Giraffe in misty forest" />
+                </div>
+              </div>
+              <div class="polaroid" data-polaroid>
+                <div class="polaroid-inner">
+                  <img src="/public/images/beephoto.png" alt="Bumblebee in flight" />
+                </div>
+              </div>
+              <div class="polaroid" data-polaroid>
+                <div class="polaroid-inner">
+                  <img src="/public/images/lemonphoto.png" alt="Dog at window" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Pet Sitting -->
-    <div class="story-section story-section-reverse">
-      <div class="story-content">
-        <h3 class="story-title">Pet Sitting Side Gig</h3>
-        <p>
-          While juggling coursework at Kutztown, I started a pet-sitting business on the side. 
-          What began as a way to earn extra income turned into something I genuinely loved—getting to know 
-          furry friends and their families, and bringing a little peace of mind when people traveled. 
-          It taught me responsibility, time management, and that the best side hustles are the ones that 
-          don't feel like work.
-        </p>
-      </div>
-      <div class="story-photo">
-        <img src="/public/images/pet-sitting.jpg" alt="Rachel with a tabby cat" />
-      </div>
-    </div>
+    <!-- Professional Timeline -->
+    <div class="timeline-wrapper" id="timeline">
+      <h2 class="section-title">My Professional Journey</h2>
+      <div class="timeline">
+        <!-- Pet Sitting -->
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <time class="timeline-date">2020 – 2024</time>
+            <h3 class="timeline-title">Pet Sitting Business</h3>
+            <p>
+              While juggling coursework at Kutztown, I started a pet-sitting business on the side. 
+              What began as a way to earn extra income turned into something I genuinely loved—getting to know 
+              furry friends and their families, and bringing a little peace of mind when people traveled. 
+              It taught me responsibility, time management, and that the best side hustles are the ones that 
+              don't feel like work.
+            </p>
+            <div class="timeline-photo">
+              <img src="/public/images/pet-sitting.jpg" alt="Rachel with a tabby cat" />
+            </div>
+          </div>
+        </article>
 
-    <!-- Kutztown Excellence Award -->
-    <div class="story-section">
-      <div class="story-content">
-        <h3 class="story-title">Kutztown University Excellence Award</h3>
-        <p>
-          I was honored to receive the <strong>Graduation Award for Academic Excellence</strong> in Computer Science— 
-          an award given to only one student each year across the entire department. It meant the world to me, 
-          especially after years of late nights debugging and early mornings in the lab. 
-          Here's the certificate and a photo from the ceremony with my department chair.
-        </p>
-      </div>
-      <div class="story-photo story-photo-dual">
-        <img src="/public/images/kutztown-certificate.png" alt="Kutztown University Graduation Award for Academic Excellence" />
-        <img src="/public/images/kutztown-award-photo.png" alt="Rachel at Kutztown award ceremony" />
-      </div>
-    </div>
+        <!-- Kutztown -->
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <time class="timeline-date">2020 – 2024</time>
+            <h3 class="timeline-title">Kutztown University</h3>
+            <p>
+              I was honored to receive the <strong>Graduation Award for Academic Excellence</strong> in Computer Science— 
+              an award given to only one student each year across the entire department. It meant the world to me, 
+              especially after years of late nights debugging and early mornings in the lab.
+            </p>
+            <div class="timeline-photo timeline-photo-dual">
+              <img src="/public/images/kutztown-certificate.png" alt="Kutztown University Graduation Award for Academic Excellence" />
+              <img src="/public/images/kutztown-award-photo.png" alt="Rachel at Kutztown award ceremony" />
+            </div>
+          </div>
+        </article>
 
-    <!-- Women's Conference -->
-    <div class="story-section story-section-reverse">
-      <div class="story-content">
-        <h3 class="story-title">Women's Conference in Philadelphia</h3>
-        <p>
-          I attended a women's conference in Philadelphia with my manager—an inspiring day of talks, 
-          networking, and empowerment. We posed in front of the "BE THE BUBBLE THAT LIFTS OTHERS" wall, 
-          and that message has stuck with me ever since. It's a reminder to lift others up as we climb.
-        </p>
-      </div>
-      <div class="story-photo">
-        <img src="/public/images/womens-conference.png" alt="Rachel and manager at women's conference" />
-      </div>
-    </div>
+        <!-- Gateway Internship -->
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <time class="timeline-date">Summer 2023</time>
+            <h3 class="timeline-title">Internship at Gateway</h3>
+            <p>
+              I spent a summer interning at Gateway Industrial Systems, where I worked alongside an amazing team of interns. 
+              We learned the ropes together, tackled real-world projects, and even left our mark—literally—with a whiteboard 
+              that read "THE INTERNS were HERE." It was a formative experience that taught me how software development 
+              works in the real world.
+            </p>
+            <div class="timeline-gallery" data-gallery="gateway">
+              <div class="gallery-main">
+                <img src="/public/images/gateway-group.png" alt="Intern team in front of Gateway building" class="gallery-active" />
+              </div>
+              <div class="gallery-thumbs">
+                <button type="button" class="gallery-thumb active" data-src="/public/images/gateway-group.png" aria-label="View team photo">
+                  <img src="/public/images/gateway-group.png" alt="" />
+                </button>
+                <button type="button" class="gallery-thumb" data-src="/public/images/gateway-interns.png" aria-label="View intern group">
+                  <img src="/public/images/gateway-interns.png" alt="" />
+                </button>
+                <button type="button" class="gallery-thumb" data-src="/public/images/interns-whiteboard.png" aria-label="View whiteboard">
+                  <img src="/public/images/interns-whiteboard.png" alt="" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
 
-    <!-- Family Reunion President -->
-    <div class="story-section">
-      <div class="story-content">
-        <h3 class="story-title">President of the Family Reunion</h3>
-        <p>
-          When it came time to plan our family reunion, I stepped up as president—organizing the event, 
-          coordinating with relatives near and far, and making sure everyone had a great time. 
-          It was chaos in the best way, and proof that I can lead both in code and in real life.
-        </p>
-      </div>
-      <div class="story-photo">
-        <img src="/public/images/family-reunion-president.png" alt="Rachel as president of family reunion" />
+        <!-- Current Work: Gateway + WriteYourLawmaker side by side -->
+        <article class="timeline-item timeline-item-last">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content timeline-content-split">
+            <time class="timeline-date">2024 – Present</time>
+            <div class="timeline-split-grid">
+              <div class="timeline-split-card">
+                <h3 class="timeline-title">Software Developer at Gateway Ticketing Systems</h3>
+                <p>
+                  I build software that powers experiences for millions of visitors. 
+                  As VP of the DEI committee, I also help foster an inclusive culture where everyone can thrive.
+                </p>
+                <div class="timeline-photo">
+                  <img src="/public/images/womens-conference.png" alt="Rachel at women's conference in Philadelphia" />
+                </div>
+              </div>
+              <div class="timeline-split-card">
+                <h3 class="timeline-title">Co-Founder at WriteYourLawmaker</h3>
+                <p>
+                  We help people connect with their representatives and make their voices heard. 
+                  Compose your letter, choose a template, and we print and mail it to the officials you choose.
+                </p>
+                <a href="https://WriteYourLawmaker.com" target="_blank" rel="noopener noreferrer" class="timeline-split-link">
+                  <div class="timeline-photo">
+                    <img src="/public/images/wyl.png" alt="Write Your Lawmaker - Make your voice heard" />
+                  </div>
+                  <span class="timeline-split-cta">Visit WriteYourLawmaker.com →</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
