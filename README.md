@@ -1,6 +1,6 @@
 # Rachel Alden Portfolio
 
-A minimalist-playful personal portfolio for racheloalden.com. Built with vanilla HTML, CSS, and JavaScript—designed for easy deployment to Digital Ocean.
+A minimalist-playful personal portfolio for racheloalden.com. Built with vanilla HTML, CSS, and JavaScript.
 
 ## Design
 
@@ -28,7 +28,7 @@ Edit the `.portfolio-grid` section in `index.html`. For each project card:
 
 1. **Thumbnail**: Add your image to `public/images/`, then replace the `.project-placeholder` div with:
    ```html
-   <img src="/images/my-game.png" alt="My Game">
+   <img src="/public/images/my-game.png" alt="My Game">
    ```
 
 2. **Title, description, links**: Update the text and `href` values.
@@ -44,13 +44,6 @@ Update the footer links in `index.html`:
 
 Edit the `.about-narrative` paragraphs to tell your story.
 
-## Deploy to Digital Ocean
+## Deployment (WinSCP / FTP)
 
-1. Push this repo to GitHub.
-2. Go to [Digital Ocean App Platform](https://cloud.digitalocean.com/apps).
-3. Click **Create App** → **GitHub** → select your repo.
-4. App Platform will detect it as a static site (no build step needed).
-5. Set your custom domain to `racheloalden.com` in the app settings.
-6. Deploy.
-
-For custom domain setup, add a CNAME record pointing to your App Platform URL.
+Upload the entire project folder to your server's web root. The structure should have `index.html`, `src/`, and `public/` at the same level. Images are served from `public/images/`.
