@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Quote Wall | Rachel Alden</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✍</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #faf5ee;
+      color: #2d2d2a;
+      font-family: 'Outfit', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      color: #8a857d;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover { color: #2d2d2a; }
+
+    .wall-title {
+      text-align: center;
+      padding: 5rem 2rem 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b0a898;
+    }
+
+    .quote-wall {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(40px, auto);
+      gap: 1.25rem;
+      padding: 2rem clamp(1.5rem, 5vw, 5rem) 6rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .quote {
+      cursor: default;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .quote blockquote {
+      transition: opacity 0.3s ease;
+      line-height: 1.45;
+    }
+
+    .quote:hover blockquote {
+      opacity: 0.5;
+    }
+
+    .quote cite {
+      display: block;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      font-style: normal;
+      color: #6b6560;
+      margin-top: 0.6rem;
+    }
+
+    .quote:hover cite {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Quote placements --- */
+    .quote:nth-child(1)  { grid-column: 1 / 6;   grid-row: 1;      transform: rotate(-1.2deg); }
+    .quote:nth-child(2)  { grid-column: 7 / 13;  grid-row: 2;      transform: rotate(0.6deg); }
+    .quote:nth-child(3)  { grid-column: 2 / 8;   grid-row: 3;      transform: rotate(-0.4deg); }
+    .quote:nth-child(4)  { grid-column: 6 / 12;  grid-row: 4;      transform: rotate(1deg); }
+    .quote:nth-child(5)  { grid-column: 1 / 6;   grid-row: 5;      transform: rotate(0.8deg); }
+    .quote:nth-child(6)  { grid-column: 8 / 13;  grid-row: 5;      transform: rotate(-1.5deg); }
+    .quote:nth-child(7)  { grid-column: 2 / 12;  grid-row: 6 / 8;  transform: rotate(-0.3deg); }
+    .quote:nth-child(8)  { grid-column: 5 / 11;  grid-row: 8;      transform: rotate(0.5deg); }
+    .quote:nth-child(9)  { grid-column: 1 / 7;   grid-row: 9;      transform: rotate(-0.8deg); }
+    .quote:nth-child(10) { grid-column: 7 / 13;  grid-row: 9;      transform: rotate(1.2deg); }
+    .quote:nth-child(11) { grid-column: 2 / 10;  grid-row: 10;     transform: rotate(0.4deg); }
+    .quote:nth-child(12) { grid-column: 5 / 12;  grid-row: 11;     transform: rotate(-1deg); }
+    .quote:nth-child(13) { grid-column: 1 / 12;  grid-row: 12 / 14; transform: rotate(-0.2deg); }
+    .quote:nth-child(14) { grid-column: 6 / 13;  grid-row: 14;     transform: rotate(0.7deg); }
+    .quote:nth-child(15) { grid-column: 1 / 6;   grid-row: 15;     transform: rotate(-1.3deg); }
+    .quote:nth-child(16) { grid-column: 3 / 11;  grid-row: 16;     transform: rotate(0.3deg); }
+    .quote:nth-child(17) { grid-column: 6 / 13;  grid-row: 17;     transform: rotate(-0.6deg); }
+    .quote:nth-child(18) { grid-column: 1 / 5;   grid-row: 17;     transform: rotate(1.4deg); }
+    .quote:nth-child(19) { grid-column: 3 / 10;  grid-row: 18;     transform: rotate(-0.9deg); }
+
+    /* --- Quote styles: each has a unique vibe --- */
+
+    /* 1. Serene - light blue cursive */
+    .quote--serene blockquote {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      color: #5b8fa8;
+    }
+
+    /* 2. Melancholy - elegant muted serif */
+    .quote--melancholy blockquote {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1rem, 2vw, 1.375rem);
+      font-style: italic;
+      color: #7a8a6e;
+    }
+
+    /* 3. Bold - large heavy sans */
+    .quote--bold blockquote {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.25rem, 2.8vw, 1.875rem);
+      font-weight: 700;
+      color: #2d2d2a;
+      letter-spacing: -0.01em;
+    }
+
+    /* 4. Philosophical - warm italic serif */
+    .quote--philosophical blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-style: italic;
+      color: #8b6f4e;
+    }
+
+    /* 5. Sharp - crisp red/crimson sans */
+    .quote--sharp blockquote {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+      font-weight: 600;
+      color: #9b3b3b;
+    }
+
+    /* 6. Classic - forest green serif */
+    .quote--classic blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-weight: 600;
+      color: #4a6b4a;
+    }
+
+    /* 7. Commanding - large, very dark, heavy */
+    .quote--commanding blockquote {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 800;
+      color: #1a1a18;
+      letter-spacing: -0.02em;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+
+    /* 8. Wry - clean steel blue sans */
+    .quote--wry blockquote {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.05rem, 2vw, 1.375rem);
+      font-weight: 400;
+      color: #4a6a80;
+    }
+
+    /* 9. Defiant - bold burgundy */
+    .quote--defiant blockquote {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+      font-weight: 600;
+      color: #7a2e3a;
+      line-height: 1.5;
+    }
+
+    /* 10. Warm - amber handwritten */
+    .quote--warm blockquote {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+      color: #8b6a3e;
+    }
+
+    /* 11. Whisper - small, quiet, understated */
+    .quote--whisper blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 400;
+      font-style: italic;
+      color: #7a7570;
+    }
+
+    @media (max-width: 768px) {
+      .quote-wall {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .quote:nth-child(n) {
+        grid-column: 1 / -1 !important;
+        grid-row: auto !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="back-link">&larr; Back to Portfolio</a>
+  <p class="wall-title">words I carry with me</p>
+
+  <div class="quote-wall">
+    <div class="quote quote--serene">
+      <blockquote>&ldquo;Of all forms of caution, caution in love is perhaps the most fatal to true happiness.&rdquo;</blockquote>
+      <cite>&mdash; Bertrand Russell</cite>
+    </div>
+
+    <div class="quote quote--melancholy">
+      <blockquote>&ldquo;The floor seemed wonderfully solid. It was comforting to know I had fallen and could fall no further.&rdquo;</blockquote>
+      <cite>&mdash; Sylvia Plath, <em>The Bell Jar</em></cite>
+    </div>
+
+    <div class="quote quote--bold">
+      <blockquote>&ldquo;Nothing of me is original. I am the combined effort of everyone I&rsquo;ve ever known.&rdquo;</blockquote>
+      <cite>&mdash; Chuck Palahniuk, <em>Invisible Monsters</em></cite>
+    </div>
+
+    <div class="quote quote--philosophical">
+      <blockquote>&ldquo;Today I am not what I think I am or what you think I am. But what I think you think I am.&rdquo;</blockquote>
+      <cite>&mdash; Charles Horton Cooley</cite>
+    </div>
+
+    <div class="quote quote--sharp">
+      <blockquote>&ldquo;For every complex problem, there is an answer that is clear, simple, and wrong.&rdquo;</blockquote>
+      <cite>&mdash; H.L. Mencken</cite>
+    </div>
+
+    <div class="quote quote--classic">
+      <blockquote>&ldquo;He that complies against his will is of his own opinion still.&rdquo;</blockquote>
+      <cite>&mdash; Samuel Butler</cite>
+    </div>
+
+    <div class="quote quote--commanding">
+      <blockquote>&ldquo;If your enemy is secure at all points, be prepared for him. If he is in superior strength, evade him. If your opponent is temperamental, seek to irritate him. Pretend to be weak, that he may grow arrogant. If he is taking his ease, give him no rest. If his forces are united, separate them. Attack him where he is unprepared, appear where you are not expected.&rdquo;</blockquote>
+      <cite>&mdash; Sun Tzu, <em>The Art of War</em></cite>
+    </div>
+
+    <div class="quote quote--wry">
+      <blockquote>&ldquo;There&rsquo;s been a tragedy, don&rsquo;t compound it with ignorance.&rdquo;</blockquote>
+      <cite>&mdash; The Doctor, <em>Star Trek: Voyager</em></cite>
+    </div>
+
+    <div class="quote quote--philosophical">
+      <blockquote>&ldquo;You are doomed to make choices. This is life&rsquo;s greatest paradox.&rdquo;</blockquote>
+      <cite>&mdash; Wayne Dyer</cite>
+    </div>
+
+    <div class="quote quote--bold">
+      <blockquote>&ldquo;When the whole world is silent, even one voice becomes powerful.&rdquo;</blockquote>
+      <cite>&mdash; Malala Yousafzai</cite>
+    </div>
+
+    <div class="quote quote--defiant">
+      <blockquote>&ldquo;When we speak, we are afraid our words will not be heard or welcomed. But when we are silent, we are still afraid. So it is better to speak.&rdquo;</blockquote>
+      <cite>&mdash; Audre Lorde</cite>
+    </div>
+
+    <div class="quote quote--sharp">
+      <blockquote>&ldquo;Avoiding danger is no safer in the long run than outright exposure. The fearful are caught as often as the bold.&rdquo;</blockquote>
+      <cite>&mdash; Helen Keller</cite>
+    </div>
+
+    <div class="quote quote--melancholy">
+      <blockquote>&ldquo;You&rsquo;re afraid of making mistakes. Don&rsquo;t be. Mistakes can be profited by. Man, when I was young I shoved my ignorance in people&rsquo;s faces. They beat me with sticks. By the time I was forty my blunt instrument had been honed to a fine cutting point for me. If you hide your ignorance, no one will hit you and you&rsquo;ll never learn.&rdquo;</blockquote>
+      <cite>&mdash; Ray Bradbury, <em>Fahrenheit 451</em></cite>
+    </div>
+
+    <div class="quote quote--wry">
+      <blockquote>&ldquo;It&rsquo;s the critics that drive improvement. It is the critics who are the true optimists.&rdquo;</blockquote>
+      <cite>&mdash; Jaron Lanier, <em>The Social Dilemma</em></cite>
+    </div>
+
+    <div class="quote quote--commanding">
+      <blockquote>&ldquo;He who has a why to live for can bear almost any how.&rdquo;</blockquote>
+      <cite>&mdash; Friedrich Nietzsche</cite>
+    </div>
+
+    <div class="quote quote--warm">
+      <blockquote>&ldquo;Friendship&hellip; is born at the moment when one man says to another &lsquo;What! You too? I thought that no one but myself&hellip;&rsquo;&rdquo;</blockquote>
+      <cite>&mdash; C.S. Lewis</cite>
+    </div>
+
+    <div class="quote quote--classic">
+      <blockquote>&ldquo;It is forbidden to kill; therefore all murderers are punished unless they kill in large numbers and to the sound of trumpets.&rdquo;</blockquote>
+      <cite>&mdash; Voltaire</cite>
+    </div>
+
+    <div class="quote quote--whisper">
+      <blockquote>&ldquo;What worries you, masters you.&rdquo;</blockquote>
+      <cite>&mdash; John Locke</cite>
+    </div>
+
+    <div class="quote quote--philosophical">
+      <blockquote>&ldquo;The books that the world calls immoral are the books that show the world its own shame.&rdquo;</blockquote>
+      <cite>&mdash; Oscar Wilde</cite>
+    </div>
+  </div>
+</body>
+</html>

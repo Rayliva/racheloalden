@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initGallery();
   initCarousels();
-  initPolaroidWalls();
   initCriticTyping();
 });
 
@@ -42,7 +41,7 @@ function initScrollAnimations() {
 
   // Observe sections and project cards
   const animateElements = document.querySelectorAll(
-    '.about-intro, .about-gallery, .timeline-item, .portfolio-intro, .project-card'
+    '.about-intro, .timeline-item, .portfolio-intro, .project-card'
   );
 
   animateElements.forEach((el) => {
@@ -142,72 +141,6 @@ function initCarousels() {
         updateDots();
       }
     });
-  });
-}
-
-/**
- * Polaroid walls: fanned overlap, accordion hover, neighbors stay hoverable
- */
-function initPolaroidWalls() {
-  document.querySelectorAll('[data-polaroid-wall]').forEach((wall) => {
-    const polaroids = Array.from(wall.querySelectorAll('[data-polaroid]'));
-    const n = polaroids.length;
-    if (n === 0) return;
-
-    const size = 110;
-    const overlap = 55;
-    const spreadOnHover = 72;
-    const baseStep = size - overlap;
-
-    function getBaseX(i) {
-      const center = (n - 1) / 2;
-      return (i - center) * baseStep;
-    }
-
-    function getRotation(i) {
-      return (i % 2 === 0 ? -1 : 1) * (1 + (i % 3) * 0.3);
-    }
-
-    function applyTransforms(hoveredIndex) {
-      polaroids.forEach((el, i) => {
-        const isHovered = i === hoveredIndex;
-        let x = getBaseX(i);
-
-        if (hoveredIndex !== null) {
-          const shift = (i - hoveredIndex) * spreadOnHover;
-          x += shift;
-        }
-
-        const rotate = isHovered ? 0 : getRotation(i);
-        el.style.setProperty('--polaroid-x', `${x}px`);
-        el.style.setProperty('--polaroid-rotate', `${rotate}deg`);
-        el.classList.toggle('is-hovered', isHovered);
-      });
-    }
-
-    let hoveredIndex = null;
-    let leaveTimer = null;
-
-    polaroids.forEach((el, i) => {
-      el.addEventListener('mouseenter', () => {
-        if (leaveTimer) {
-          clearTimeout(leaveTimer);
-          leaveTimer = null;
-        }
-        hoveredIndex = i;
-        applyTransforms(hoveredIndex);
-      });
-    });
-
-    wall.addEventListener('mouseleave', () => {
-      leaveTimer = setTimeout(() => {
-        hoveredIndex = null;
-        applyTransforms(null);
-        leaveTimer = null;
-      }, 50);
-    });
-
-    applyTransforms(null);
   });
 }
 

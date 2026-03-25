@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Poetry Book | Rachel Alden</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Outfit', system-ui, sans-serif;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover { color: rgba(255,255,255,0.85); }
+
+    .desk {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      background-color: #4a3018;
+      background-image:
+        repeating-linear-gradient(88deg, transparent 0, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px),
+        repeating-linear-gradient(92deg, transparent 0, transparent 22px, rgba(0,0,0,0.01) 22px, rgba(0,0,0,0.01) 44px),
+        linear-gradient(to right, rgba(0,0,0,0.04) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.04) 100%),
+        linear-gradient(to bottom, #5c3a20 0%, #4a3018 40%, #3e2812 100%);
+    }
+
+    /* --- Book container --- */
+    .book {
+      position: relative;
+      width: min(92vw, 760px);
+      aspect-ratio: 3 / 2;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.15),
+        0 8px 24px rgba(0,0,0,0.25),
+        0 20px 60px rgba(0,0,0,0.2);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .book-content {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Page-edge detail on the right */
+    .book.is-open::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      right: -5px;
+      bottom: 3px;
+      width: 8px;
+      background: linear-gradient(to right, #e8e0d0, #f0e8d8 40%, #ddd5c5);
+      border-radius: 0 2px 2px 0;
+      box-shadow: 1px 0 3px rgba(0,0,0,0.12);
+      z-index: 5;
+    }
+
+    /* --- Spread (two pages) --- */
+    .spread {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .spread.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spread.exit-left {
+      opacity: 0;
+      transform: translateX(-15px);
+    }
+
+    .spread.exit-right {
+      opacity: 0;
+      transform: translateX(15px);
+    }
+
+    /* --- Cover --- */
+    .cover {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .cover-front {
+      background: linear-gradient(155deg, #5a1a2e 0%, #3d0f1e 50%, #2a0812 100%);
+      color: #c9a048;
+    }
+
+    .cover-back {
+      background: linear-gradient(155deg, #3d0f1e 0%, #2a0812 60%, #1e0610 100%);
+      color: #a88838;
+    }
+
+    .cover-border {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(201, 160, 72, 0.3);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .cover-rule {
+      width: 60px;
+      height: 1px;
+      background: rgba(201, 160, 72, 0.4);
+      margin: 1rem 0;
+    }
+
+    .cover-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .cover-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.75rem, 1.8vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    .cover-author {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .cover-prompt {
+      position: absolute;
+      bottom: 2rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.6875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      animation: pulse-prompt 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-prompt {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+    }
+
+    /* --- Pages --- */
+    .page {
+      flex: 1;
+      background: #f5f0e1;
+      padding: clamp(1.25rem, 3vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-left {
+      border-right: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .page-right {
+      border-left: 1px solid rgba(0,0,0,0.04);
+    }
+
+    /* Gutter shadow */
+    .page-left::after,
+    .page-right::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .page-left::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(0,0,0,0.06), transparent);
+    }
+
+    .page-right::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.06), transparent);
+    }
+
+    /* --- Page content --- */
+    .page-header {
+      text-align: center;
+      margin-bottom: auto;
+    }
+
+    .poem-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      color: #2a2420;
+      margin-bottom: 0.25rem;
+    }
+
+    .poem-author {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.7rem, 1.6vw, 0.875rem);
+      font-weight: 400;
+      font-style: italic;
+      color: #8a7a6a;
+    }
+
+    .poem-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .poem-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.75rem, 1.7vw, 1.0625rem);
+      font-weight: 400;
+      line-height: 1.7;
+      color: #2a2420;
+      white-space: pre-line;
+      text-align: left;
+      max-width: 32ch;
+    }
+
+    .page-number {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.625rem, 1.4vw, 0.8125rem);
+      color: #a89880;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    /* --- Table of Contents --- */
+    .toc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+      font-weight: 600;
+      color: #2a2420;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .toc-list {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(0.4rem, 1.2vw, 0.75rem);
+    }
+
+    .toc-entry {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.7rem, 1.6vw, 0.9375rem);
+      color: #2a2420;
+    }
+
+    .toc-entry-title {
+      white-space: nowrap;
+    }
+
+    .toc-entry-dots {
+      flex: 1;
+      border-bottom: 1px dotted #c9b99a;
+      min-width: 20px;
+      transform: translateY(-3px);
+    }
+
+    .toc-entry-page {
+      white-space: nowrap;
+      color: #8a7a6a;
+    }
+
+    /* --- Navigation --- */
+    .book-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.6);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.2;
+      cursor: default;
+    }
+
+    .nav-indicator {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    @media (max-width: 580px) {
+      .book { aspect-ratio: 4 / 3; }
+      .poem-text { max-width: 20ch; }
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="back-link">&larr; Back to Portfolio</a>
+
+  <div class="desk">
+    <div class="book" id="book">
+      <div class="book-content" id="book-content"></div>
+    </div>
+    <div class="book-nav">
+      <button class="nav-btn" id="prev-btn" aria-label="Previous page">&lsaquo;</button>
+      <span class="nav-indicator" id="nav-indicator"></span>
+      <button class="nav-btn" id="next-btn" aria-label="Next page">&rsaquo;</button>
+    </div>
+  </div>
+
+  <script>
+    const poems = [
+      {
+        title: 'Morning Light',
+        author: 'A.M. Sterling',
+        text:
+`The kettle sings its one flat note,
+steam curling toward the ceiling\u2014
+a thread of warmth, a sleeve of smoke,
+too thin to hold a feeling.
+
+I watch the light cross the kitchen floor,
+inching slow, the way all good things come:
+unhurried, unrequested,
+certain as a drum.`
+      },
+      {
+        title: 'The Architect',
+        author: 'Clara Weston',
+        text:
+`She drew the house before the land was cleared,
+before the nails were counted, the lumber stacked.
+In her mind the hallways hummed with voices,
+and every door swung open both ways.
+
+What she built was never quite the blueprint\u2014
+the walls leaned in a little, listening,
+and the roof, she said, was just a suggestion
+the sky could take or leave.`
+      },
+      {
+        title: 'Small Hours',
+        author: 'Theo Marsh',
+        text:
+`At 3 a.m. the city folds in half.
+The traffic lights still cycle\u2014green, yellow, red\u2014
+an audience of none,
+performing anyway.
+
+I like the honesty of empty streets,
+the way they stop pretending to go somewhere.
+At 3 a.m. there\u2019s no one left to rush for.
+The pavement finally exhales.`
+      },
+      {
+        title: 'Unfinished Map',
+        author: 'Lena Cross',
+        text:
+`I have been drawing the borders of myself
+for years, and they keep moving\u2014
+rivers where I put roads,
+mountains where I expected plains.
+
+Every survey says something different.
+I\u2019ve stopped believing in fixed coordinates.
+Now I just carry the pencil
+and let the territory tell me where it ends.`
+      },
+      {
+        title: 'After the Storm',
+        author: 'James Whitfield',
+        text:
+`The branches write apologies across the yard,
+leaves scattered like torn-up drafts
+of letters no one sent.
+
+The sky puts on its softest blue\u2014
+the one it saves for after\u2014
+as if to say: I know. I\u2019m sorry.
+Here. Let\u2019s start again.`
+      }
+    ];
+
+    const book = document.getElementById('book');
+    const content = document.getElementById('book-content');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const indicator = document.getElementById('nav-indicator');
+
+    let current = 0;
+    const totalViews = 4; // 0=cover, 1-3=spreads, (back cover removed for cleanliness)
+
+    function buildCover() {
+      return `
+        <div class="spread">
+          <div class="cover cover-front">
+            <div class="cover-border"></div>
+            <div class="cover-rule"></div>
+            <h1 class="cover-title">Poems</h1>
+            <p class="cover-subtitle">A Personal Collection</p>
+            <div class="cover-rule"></div>
+            <p class="cover-author">Rachel Alden</p>
+            <p class="cover-prompt">turn the page &rsaquo;</p>
+          </div>
+        </div>`;
+    }
+
+    function buildTocPage() {
+      const entries = poems.map((p, i) =>
+        `<li class="toc-entry">
+          <span class="toc-entry-title">${p.title}</span>
+          <span class="toc-entry-dots"></span>
+          <span class="toc-entry-page">${i + 1}</span>
+        </li>`
+      ).join('');
+
+      return `
+        <div class="page page-left">
+          <h2 class="toc-title">Contents</h2>
+          <ul class="toc-list">${entries}</ul>
+          <div class="page-number"></div>
+        </div>`;
+    }
+
+    function buildPoemPage(index, side) {
+      const p = poems[index];
+      return `
+        <div class="page page-${side}">
+          <div class="page-header">
+            <h2 class="poem-title">${p.title}</h2>
+            <p class="poem-author">${p.author}</p>
+          </div>
+          <div class="poem-body">
+            <div class="poem-text">${p.text}</div>
+          </div>
+          <div class="page-number">${index + 1}</div>
+        </div>`;
+    }
+
+    function buildBlankPage(side, pageNum) {
+      return `
+        <div class="page page-${side}">
+          <div style="flex:1"></div>
+          ${pageNum !== null ? `<div class="page-number">${pageNum}</div>` : ''}
+        </div>`;
+    }
+
+    function render(direction) {
+      const oldSpread = content.querySelector('.spread');
+
+      let html = '';
+      if (current === 0) {
+        html = buildCover();
+        book.classList.remove('is-open');
+        book.classList.add('is-closed');
+      } else {
+        book.classList.remove('is-closed');
+        book.classList.add('is-open');
+
+        const spreadIndex = current - 1;
+        let leftHtml, rightHtml;
+
+        if (spreadIndex === 0) {
+          leftHtml = buildTocPage();
+          rightHtml = buildPoemPage(0, 'right');
+        } else {
+          const poemLeft = spreadIndex * 2 - 1;
+          const poemRight = spreadIndex * 2;
+          leftHtml = poemLeft < poems.length
+            ? buildPoemPage(poemLeft, 'left')
+            : buildBlankPage('left', null);
+          rightHtml = poemRight < poems.length
+            ? buildPoemPage(poemRight, 'right')
+            : buildBlankPage('right', null);
+        }
+
+        html = `<div class="spread">${leftHtml}${rightHtml}</div>`;
+      }
+
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+      const newSpread = temp.firstElementChild;
+
+      if (oldSpread && direction !== undefined) {
+        const exitClass = direction > 0 ? 'exit-left' : 'exit-right';
+        oldSpread.classList.add(exitClass);
+        newSpread.classList.add('hidden');
+        content.appendChild(newSpread);
+
+        requestAnimationFrame(() => {
+          newSpread.classList.remove('hidden');
+        });
+
+        setTimeout(() => oldSpread.remove(), 300);
+      } else {
+        content.innerHTML = '';
+        content.appendChild(newSpread);
+      }
+
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === totalViews - 1;
+
+      if (current === 0) {
+        indicator.textContent = 'Cover';
+      } else {
+        const spreadIdx = current - 1;
+        const leftNum = spreadIdx === 0 ? 'i' : String(spreadIdx * 2);
+        const rightNum = String(spreadIdx * 2 + 1);
+        if (spreadIdx === 0) {
+          indicator.textContent = `Contents \u2013 ${rightNum}`;
+        } else {
+          indicator.textContent = `${leftNum} \u2013 ${rightNum}`;
+        }
+      }
+    }
+
+    function go(direction) {
+      const next = current + direction;
+      if (next < 0 || next >= totalViews) return;
+      current = next;
+      render(direction);
+    }
+
+    prevBtn.addEventListener('click', () => go(-1));
+    nextBtn.addEventListener('click', () => go(1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
+
+    render();
+  </script>
+</body>
+</html>

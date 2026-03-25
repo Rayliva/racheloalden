@@ -25,7 +25,16 @@
       <div class="hero-buttons">
         <a href="#about" class="btn btn-secondary">About Me</a>
         <a href="#timeline" class="btn btn-secondary">My Journey</a>
-        <a href="#portfolio" class="btn btn-primary">See My Work</a>
+        <a href="#portfolio" class="btn btn-secondary">See My Work</a>
+      </div>
+      <div class="hero-explore">
+        <p class="hero-explore-label">explore</p>
+        <div class="hero-explore-links">
+          <a href="gallery.html" class="explore-link">The Art Gallery</a>
+          <a href="darkroom.html" class="explore-link">The Dark Room</a>
+          <a href="quotes.html" class="explore-link">The Quote Wall</a>
+          <a href="poems.html" class="explore-link">The Poetry Book</a>
+        </div>
       </div>
     </div>
     <div class="hero-decoration" aria-hidden="true">
@@ -56,82 +65,6 @@
         </div>
       </div>
 
-      <!-- About Me Visual Gallery: President photo (left) + Carousels (right) -->
-      <div class="about-gallery">
-        <div class="about-gallery-left">
-          <div class="about-visual">
-            <img src="/public/images/family-reunion-president.png" alt="Rachel as president of family reunion" />
-          </div>
-          <p class="about-gallery-caption">President of my family reunion</p>
-        </div>
-        <div class="about-gallery-right">
-          <div class="about-carousel-section">
-            <h4 class="about-carousel-label">Paintings</h4>
-            <div class="paintings-wall">
-              <div class="painting-frame painting-frame-1">
-                <span class="painting-frame-hanger" aria-hidden="true"></span>
-                <div class="painting-frame-inner">
-                  <img src="/public/images/orangepainting.png" alt="Watercolor painting of oranges" />
-                </div>
-              </div>
-              <div class="painting-frame painting-frame-2">
-                <span class="painting-frame-hanger" aria-hidden="true"></span>
-                <div class="painting-frame-inner">
-                  <img src="/public/images/lemonpainting.png" alt="Painting of lemons" />
-                </div>
-              </div>
-              <div class="painting-frame painting-frame-3">
-                <span class="painting-frame-hanger" aria-hidden="true"></span>
-                <div class="painting-frame-inner">
-                  <img src="/public/images/csgopainting.png" alt="Painting inspired by Counter-Strike Inferno map" />
-                </div>
-              </div>
-              <div class="painting-frame painting-frame-4">
-                <span class="painting-frame-hanger" aria-hidden="true"></span>
-                <div class="painting-frame-inner">
-                  <img src="/public/images/chairpainting.png" alt="Watercolor painting of a blue chair" />
-                </div>
-              </div>
-              <div class="painting-frame painting-frame-5">
-                <span class="painting-frame-hanger" aria-hidden="true"></span>
-                <div class="painting-frame-inner">
-                  <img src="/public/images/applepainting.png" alt="Painting of a red apple" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="about-carousel-section">
-            <h4 class="about-carousel-label">Photography</h4>
-            <div class="polaroid-wall" data-polaroid-wall>
-              <div class="polaroid" data-polaroid>
-                <div class="polaroid-inner">
-                  <img src="/public/images/lacroixphoto.png" alt="La Croix cans on the beach" />
-                </div>
-              </div>
-              <div class="polaroid" data-polaroid>
-                <div class="polaroid-inner">
-                  <img src="/public/images/trainphoto.png" alt="Snow-dusted train at station" />
-                </div>
-              </div>
-              <div class="polaroid" data-polaroid>
-                <div class="polaroid-inner">
-                  <img src="/public/images/giraffephoto.png" alt="Giraffe in misty forest" />
-                </div>
-              </div>
-              <div class="polaroid" data-polaroid>
-                <div class="polaroid-inner">
-                  <img src="/public/images/beephoto.png" alt="Bumblebee in flight" />
-                </div>
-              </div>
-              <div class="polaroid" data-polaroid>
-                <div class="polaroid-inner">
-                  <img src="/public/images/lemonphoto.png" alt="Dog at window" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Professional Timeline -->
@@ -184,7 +117,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content timeline-content-side">
             <div class="timeline-side-text">
-              <time class="timeline-date">Summer 2023</time>
+              <time class="timeline-date">Summer 2024</time>
               <h3 class="timeline-title">Internship at Gateway</h3>
               <p>
                 I spent a summer interning at Gateway Industrial Systems, where I worked alongside an amazing team of interns. 
@@ -247,7 +180,7 @@
                 While juggling coursework at Kutztown, I started a pet-sitting business on the side. 
                 What began as a way to earn extra income turned into something I genuinely loved—getting to know 
                 furry friends and their families, and bringing a little peace of mind when people traveled. 
-                It taught me responsibility, time management, and that the best side hustles are the ones that 
+                It taught me responsibility, time management, and that the best jobs are the ones that
                 don't feel like work.
               </p>
             </div>
@@ -283,30 +216,48 @@
           </div>
         </article>
         <article class="project-card">
-          <div class="project-thumbnail">
-            <div class="project-placeholder">🕹️</div>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Project Two</h3>
-            <p class="project-description">Describe your second project. Keep it punchy and engaging.</p>
-            <div class="project-links">
-              <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Play Live</a>
-              <a href="#" class="project-link project-link-gh" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="gallery.html" class="project-card-link">
+            <div class="project-thumbnail">
+              <div class="project-placeholder">🖼️</div>
             </div>
-          </div>
+            <div class="project-info">
+              <h3 class="project-title">The Art Gallery</h3>
+              <p class="project-description">A first-person museum walkthrough of my paintings. Scroll through the hall and take in the work.</p>
+            </div>
+          </a>
         </article>
         <article class="project-card">
-          <div class="project-thumbnail">
-            <div class="project-placeholder">🌟</div>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Project Three</h3>
-            <p class="project-description">Your third project's story. What did you learn? What's the hook?</p>
-            <div class="project-links">
-              <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Play Live</a>
-              <a href="#" class="project-link project-link-gh" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="darkroom.html" class="project-card-link">
+            <div class="project-thumbnail">
+              <div class="project-placeholder">📷</div>
             </div>
-          </div>
+            <div class="project-info">
+              <h3 class="project-title">The Dark Room</h3>
+              <p class="project-description">Step into the darkroom. My photography, hung from the clothesline like prints drying in amber light.</p>
+            </div>
+          </a>
+        </article>
+        <article class="project-card">
+          <a href="quotes.html" class="project-card-link">
+            <div class="project-thumbnail">
+              <div class="project-placeholder">✍️</div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">The Quote Wall</h3>
+              <p class="project-description">Words I carry with me. An inspiration wall of quotes that shaped how I think.</p>
+            </div>
+          </a>
+        </article>
+        <article class="project-card">
+          <a href="poems.html" class="project-card-link">
+            <div class="project-thumbnail">
+              <div class="project-placeholder">📖</div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">The Poetry Book</h3>
+              <p class="project-description">A book on a desk. Flip through the pages of poems I love, one turn at a time.</p>
+            </div>
+          </a>
         </article>
       </div>
     </div>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Art Gallery | Rachel Alden</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #1e1a16;
+      color: #e8e0d4;
+      font-family: 'Outfit', system-ui, sans-serif;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      color: #a89880;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover { color: #e8ddd4; }
+
+    .scroll-hint {
+      position: fixed;
+      bottom: 18vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      color: #6b5e50;
+      font-size: 0.8125rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fade-hint 4s ease-in-out forwards;
+      pointer-events: none;
+    }
+    @keyframes fade-hint {
+      0%, 50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .gallery-scroll {
+      width: 100vw;
+      height: 100vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+    .gallery-scroll::-webkit-scrollbar { display: none; }
+
+    .gallery-wall {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0;
+      padding-bottom: 16vh;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    /* --- Doorway openings --- */
+    .doorway-area {
+      flex-shrink: 0;
+      align-self: flex-end;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: clamp(110px, 14vw, 200px);
+      height: 35vh;
+      margin-bottom: -4vh;
+    }
+
+    .doorway {
+      flex: 1;
+      width: 80%;
+      margin-top: 1rem;
+      background: #050403;
+      border: 2px solid #2a2420;
+      border-bottom: none;
+      border-radius: 3px 3px 0 0;
+      box-shadow:
+        inset 4px 0 12px rgba(0,0,0,0.7),
+        inset -4px 0 12px rgba(0,0,0,0.7),
+        inset 0 4px 12px rgba(0,0,0,0.7);
+    }
+
+    /* --- Exit signs --- */
+    .exit-sign {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.75rem;
+      background: #1b7a35;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      box-shadow:
+        0 0 14px rgba(30, 140, 60, 0.25),
+        0 2px 6px rgba(0,0,0,0.4);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .exit-sign:hover {
+      box-shadow:
+        0 0 24px rgba(30, 140, 60, 0.45),
+        0 2px 8px rgba(0,0,0,0.4);
+      transform: scale(1.05);
+    }
+
+    .exit-sign-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .exit-person {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .exit-sign-left .exit-person {
+      transform: scaleX(-1);
+    }
+
+    /* --- Paintings --- */
+    .gallery-piece {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 clamp(2rem, 5vw, 5rem);
+      position: relative;
+    }
+
+    .gallery-piece::before {
+      content: '';
+      position: absolute;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 120%;
+      background: radial-gradient(ellipse at 50% 10%, rgba(255,245,220,0.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .frame {
+      position: relative;
+      padding: 16px;
+      background: linear-gradient(145deg, #c9a048 0%, #a8842e 40%, #8b6914 100%);
+      box-shadow:
+        inset 2px 2px 6px rgba(255,255,255,0.12),
+        inset -2px -2px 6px rgba(0,0,0,0.25),
+        0 8px 32px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(139,105,20,0.3);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+
+    .frame:hover {
+      transform: scale(1.03);
+      box-shadow:
+        inset 2px 2px 6px rgba(255,255,255,0.12),
+        inset -2px -2px 6px rgba(0,0,0,0.25),
+        0 12px 48px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(139,105,20,0.3);
+    }
+
+    .frame-inner {
+      border: 1px solid rgba(0,0,0,0.2);
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .frame img {
+      display: block;
+      width: auto;
+      height: clamp(200px, 42vh, 420px);
+      max-width: 400px;
+      object-fit: contain;
+      background: #2a2420;
+    }
+
+    .placard {
+      margin-top: 1.75rem;
+      padding: 0.625rem 1.25rem;
+      background: #f5f0e1;
+      border: 1px solid #d4cbb8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-align: center;
+      max-width: 240px;
+    }
+
+    .placard-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #2a2420;
+      font-style: italic;
+    }
+
+    .placard-medium {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.6875rem;
+      color: #6b5e50;
+      margin-top: 0.15rem;
+    }
+
+    /* --- Floor (fixed) --- */
+    .floor {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 12vh;
+      background: linear-gradient(to bottom, #3d2e1e 0%, #2a1f14 100%);
+      border-top: 3px solid #5a4330;
+      z-index: 10;
+    }
+
+    .floor::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0, transparent 100px,
+        rgba(0,0,0,0.04) 100px, rgba(0,0,0,0.04) 101px
+      );
+    }
+
+    @media (max-width: 768px) {
+      .gallery-piece { padding: 0 clamp(1.5rem, 6vw, 3rem); }
+      .frame { padding: 10px; }
+      .frame img { height: clamp(160px, 35vh, 300px); max-width: 280px; }
+      .doorway-area { width: clamp(80px, 12vw, 140px); }
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="back-link">&larr; Back to Portfolio</a>
+  <p class="scroll-hint">scroll to explore &rarr;</p>
+
+  <div class="gallery-scroll">
+    <div class="gallery-wall">
+
+      <!-- Left doorway with exit sign -->
+      <div class="doorway-area">
+        <a href="/" class="exit-sign exit-sign-left" aria-label="Exit gallery">
+          <svg class="exit-person" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7"/>
+          </svg>
+          <span class="exit-sign-text">EXIT</span>
+        </a>
+        <div class="doorway"></div>
+      </div>
+
+      <!-- Paintings -->
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
+            <img src="/public/images/orangepainting.png" alt="Watercolor painting of oranges" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">Still Life with Oranges</p>
+          <p class="placard-medium">Watercolor on paper</p>
+        </div>
+      </div>
+
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
+            <img src="/public/images/lemonpainting.png" alt="Painting of lemons" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">Lemons on Linen</p>
+          <p class="placard-medium">Watercolor on paper</p>
+        </div>
+      </div>
+
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
+            <img src="/public/images/csgopainting.png" alt="Painting inspired by Counter-Strike Inferno map" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">de_inferno</p>
+          <p class="placard-medium">Acrylic on canvas</p>
+        </div>
+      </div>
+
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
+            <img src="/public/images/chairpainting.png" alt="Watercolor painting of a blue chair" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">The Blue Chair</p>
+          <p class="placard-medium">Watercolor on paper</p>
+        </div>
+      </div>
+
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
+            <img src="/public/images/applepainting.png" alt="Painting of a red apple" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">Study of a Red Apple</p>
+          <p class="placard-medium">Watercolor on paper</p>
+        </div>
+      </div>
+
+      <!-- Right doorway with exit sign -->
+      <div class="doorway-area">
+        <a href="/" class="exit-sign exit-sign-right" aria-label="Exit gallery">
+          <span class="exit-sign-text">EXIT</span>
+          <svg class="exit-person" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7"/>
+          </svg>
+        </a>
+        <div class="doorway"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="floor"></div>
+
+  <script>
+    const gallery = document.querySelector('.gallery-scroll');
+    gallery.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        gallery.scrollBy({ left: e.deltaY * 2.5, behavior: 'auto' });
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>

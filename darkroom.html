@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Dark Room | Rachel Alden</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: #0d0a08;
+      color: #c9b99a;
+      font-family: 'Outfit', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      color: #6b5544;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover { color: #c9a882; }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 15%, rgba(180, 60, 20, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 75%, rgba(200, 120, 40, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 40%, rgba(140, 40, 10, 0.03) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .safe-light {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #8b1a1a;
+      box-shadow: 0 0 20px rgba(180, 40, 20, 0.4), 0 0 60px rgba(180, 40, 20, 0.12);
+      animation: pulse-glow 3s ease-in-out infinite;
+      z-index: 50;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(180, 40, 20, 0.4), 0 0 60px rgba(180, 40, 20, 0.12); }
+      50% { box-shadow: 0 0 30px rgba(180, 40, 20, 0.6), 0 0 80px rgba(180, 40, 20, 0.2); }
+    }
+
+    .darkroom {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .clothesline {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      min-height: 380px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: clamp(1rem, 3.5vw, 3rem);
+      padding-top: 14px;
+    }
+
+    .clothesline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -2%;
+      right: -2%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #4a4040 4%, #4a4040 96%, transparent);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .photo {
+      position: relative;
+      transform-origin: top center;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s;
+      z-index: 1;
+      cursor: default;
+    }
+
+    .photo:hover {
+      transform: rotate(0deg) scale(1.1) translateY(4px);
+      z-index: 10;
+    }
+
+    .clip {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 22px;
+      z-index: 2;
+    }
+
+    .clip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 16px;
+      background: linear-gradient(to bottom, #8b7355, #6b5335);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .clip::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 2px;
+      width: 6px;
+      height: 7px;
+      background: #6b5335;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+    }
+
+    .polaroid-frame {
+      padding: 10px 10px 36px 10px;
+      background: #f2ede4;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.2);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .photo:hover .polaroid-frame {
+      box-shadow: 0 10px 36px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .polaroid-frame img {
+      display: block;
+      width: clamp(110px, 17vw, 175px);
+      aspect-ratio: 1;
+      object-fit: cover;
+      background: #1a1612;
+    }
+
+    @media (max-width: 640px) {
+      .clothesline {
+        flex-wrap: wrap;
+        gap: 2.5rem 1.5rem;
+        padding-top: 2rem;
+        justify-content: center;
+      }
+      .clothesline::before { display: none; }
+      .polaroid-frame img { width: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="back-link">&larr; Back to Portfolio</a>
+  <div class="safe-light"></div>
+  <div class="ambient"></div>
+
+  <div class="darkroom">
+    <div class="clothesline">
+      <div class="photo" style="--rot: -4deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/lacroixphoto.png" alt="La Croix cans on the beach" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: 2.5deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/trainphoto.png" alt="Snow-dusted train at station" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: -1.5deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/giraffephoto.png" alt="Giraffe in misty forest" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: 3.5deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/beephoto.png" alt="Bumblebee in flight" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: -2deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/lemonphoto.png" alt="Dog at window" />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
