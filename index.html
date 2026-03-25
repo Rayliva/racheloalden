@@ -15,11 +15,13 @@
   <!-- Hero Section -->
   <header class="hero" id="hero">
     <div class="hero-content">
-      <img src="/public/images/profile.jpg" alt="Rachel Alden" class="hero-profile" />
+      <img src="/public/images/profile.png" alt="Rachel Alden" class="hero-profile" />
       <p class="hero-greeting">Hi, I'm</p>
       <h1 class="hero-title">Rachel Alden</h1>
-      <p class="hero-tagline">Software Developer & Game Creator</p>
-      <p class="hero-subtitle">I build things that are fun to play and delightful to use.</p>
+      <p class="hero-tagline">
+        Software developer
+        <span class="hero-tagline-secondary">painter, <span class="critic-hover" data-critic-quote="It's the critics that drive improvement. It's the critics who are the true optimists. — Jaron Lanier">critic<span class="critic-typing-tooltip" aria-live="polite"><span class="critic-prefix"></span><span class="critic-typed"></span><span class="critic-cursor">|</span></span></span>, cat mom, and more</span>
+      </p>
       <div class="hero-buttons">
         <a href="#about" class="btn btn-secondary">About Me</a>
         <a href="#timeline" class="btn btn-secondary">My Journey</a>
@@ -37,19 +39,21 @@
   <section class="about" id="about">
     <div class="about-intro">
       <h2 class="section-title">About Me</h2>
-      <div class="about-narrative">
-        <p>
-          I fell in love with code when I realized I could bring ideas to life—one line at a time. 
-          What started as curiosity became a passion for crafting experiences that feel both polished and playful.
-        </p>
-        <p>
-          Beyond coding, I'm a <strong>painter</strong> and <strong>photographer</strong>—always finding new ways to capture and create. 
-          I'm also a <strong>leader</strong>: I serve as President of my family reunion and Vice President of the DEI (Diversity, Equity & Inclusion) committee at Gateway. 
-          I love to learn, and as a result I've picked up a variety of skills that help me bring fresh perspectives to everything I do.
-        </p>
-        <p>
-          I'm always excited to collaborate on creative projects. Let's build something wonderful together.
-        </p>
+      <div class="about-main">
+        <div class="about-profile">
+          <img src="/public/images/profile.png" alt="Rachel Alden" class="about-profile-img" width="240" height="240" />
+        </div>
+        <div class="about-narrative">
+          <p>
+            My path to software development was anything but a straight line. Driven by a deep curiosity to understand how the world works, I explored fields as diverse as biology and education, and even earned a cosmetology license. While each step taught me something new, I knew I hadn't yet found the thing that truly set my mind on fire.
+          </p>
+          <p>
+            My &ldquo;aha&rdquo; moment came while volunteering with Big Brother Big Sister. My "little sister" loved Roblox, and I started building games for her. I didn&rsquo;t even realize I was programming at first. All I knew was that it felt like discovering magic. It was like casting spells: with the right words in the exact right order, I could build anything.
+          </p>
+          <p>
+            This journey transformed my perspective. My questions shifted from asking what was possible to figuring out how to make it a reality. That relentless drive to solve the &ldquo;how&rdquo; is exactly what I bring to every project I touch today.
+          </p>
+        </div>
       </div>
 
       <!-- About Me Visual Gallery: President photo (left) + Carousels (right) -->
@@ -134,39 +138,43 @@
     <div class="timeline-wrapper" id="timeline">
       <h2 class="section-title">My Professional Journey</h2>
       <div class="timeline">
-        <!-- Pet Sitting -->
+        <!-- 2024 – Present: Gateway + WriteYourLawmaker -->
         <article class="timeline-item">
           <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <time class="timeline-date">2020 – 2024</time>
-            <h3 class="timeline-title">Pet Sitting Business</h3>
-            <p>
-              While juggling coursework at Kutztown, I started a pet-sitting business on the side. 
-              What began as a way to earn extra income turned into something I genuinely loved—getting to know 
-              furry friends and their families, and bringing a little peace of mind when people traveled. 
-              It taught me responsibility, time management, and that the best side hustles are the ones that 
-              don't feel like work.
-            </p>
-            <div class="timeline-photo">
-              <img src="/public/images/pet-sitting.jpg" alt="Rachel with a tabby cat" />
-            </div>
-          </div>
-        </article>
-
-        <!-- Kutztown -->
-        <article class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <time class="timeline-date">2020 – 2024</time>
-            <h3 class="timeline-title">Kutztown University</h3>
-            <p>
-              I was honored to receive the <strong>Graduation Award for Academic Excellence</strong> in Computer Science— 
-              an award given to only one student each year across the entire department. It meant the world to me, 
-              especially after years of late nights debugging and early mornings in the lab.
-            </p>
-            <div class="timeline-photo timeline-photo-dual">
-              <img src="/public/images/kutztown-certificate.png" alt="Kutztown University Graduation Award for Academic Excellence" />
-              <img src="/public/images/kutztown-award-photo.png" alt="Rachel at Kutztown award ceremony" />
+          <div class="timeline-content timeline-content-group">
+            <time class="timeline-date">2024 – Present</time>
+            <div class="timeline-group-grid">
+              <div class="timeline-content-side">
+                <div class="timeline-side-text">
+                  <h3 class="timeline-title">Software Developer at Gateway Ticketing Systems</h3>
+                  <p>
+                    I build software that powers experiences for millions of visitors. 
+                    As VP of the DEI committee, I also help foster an inclusive culture where everyone can thrive.
+                  </p>
+                </div>
+                <div class="timeline-side-media">
+                  <div class="timeline-photo">
+                    <img src="/public/images/womens-conference.png" alt="Rachel at women's conference in Philadelphia" />
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-content-side">
+                <div class="timeline-side-text">
+                  <h3 class="timeline-title">Co-Founder at WriteYourLawmaker</h3>
+                  <p>
+                    We help people connect with their representatives and make their voices heard. 
+                    Compose your letter, choose a template, and we print and mail it to the officials you choose.
+                    <a href="https://WriteYourLawmaker.com" target="_blank" rel="noopener noreferrer" class="timeline-link">Visit WriteYourLawmaker.com →</a>
+                  </p>
+                </div>
+                <div class="timeline-side-media">
+                  <a href="https://WriteYourLawmaker.com" target="_blank" rel="noopener noreferrer" class="timeline-photo-link">
+                    <div class="timeline-photo">
+                      <img src="/public/images/wyl.png" alt="Write Your Lawmaker - Make your voice heard" />
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -174,62 +182,78 @@
         <!-- Gateway Internship -->
         <article class="timeline-item">
           <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <time class="timeline-date">Summer 2023</time>
-            <h3 class="timeline-title">Internship at Gateway</h3>
-            <p>
-              I spent a summer interning at Gateway Industrial Systems, where I worked alongside an amazing team of interns. 
-              We learned the ropes together, tackled real-world projects, and even left our mark—literally—with a whiteboard 
-              that read "THE INTERNS were HERE." It was a formative experience that taught me how software development 
-              works in the real world.
-            </p>
-            <div class="timeline-gallery" data-gallery="gateway">
+          <div class="timeline-content timeline-content-side">
+            <div class="timeline-side-text">
+              <time class="timeline-date">Summer 2023</time>
+              <h3 class="timeline-title">Internship at Gateway</h3>
+              <p>
+                I spent a summer interning at Gateway Industrial Systems, where I worked alongside an amazing team of interns. 
+                We learned the ropes together, tackled real-world projects, and even left our mark—literally—with a whiteboard 
+                that read "THE INTERNS were HERE." It was a formative experience that taught me how software development 
+                works in the real world.
+              </p>
+            </div>
+            <div class="timeline-side-media">
+              <div class="timeline-gallery" data-gallery="gateway">
               <div class="gallery-main">
-                <img src="/public/images/gateway-group.png" alt="Intern team in front of Gateway building" class="gallery-active" />
+                <img src="/public/images/gateway-interns.png" alt="Intern group outside" class="gallery-active" />
               </div>
               <div class="gallery-thumbs">
-                <button type="button" class="gallery-thumb active" data-src="/public/images/gateway-group.png" aria-label="View team photo">
-                  <img src="/public/images/gateway-group.png" alt="" />
-                </button>
-                <button type="button" class="gallery-thumb" data-src="/public/images/gateway-interns.png" aria-label="View intern group">
+                <button type="button" class="gallery-thumb active" data-src="/public/images/gateway-interns.png" aria-label="View interns outside">
                   <img src="/public/images/gateway-interns.png" alt="" />
+                </button>
+                <button type="button" class="gallery-thumb" data-src="/public/images/gateway-group.png" aria-label="View team photo">
+                  <img src="/public/images/gateway-group.png" alt="" />
                 </button>
                 <button type="button" class="gallery-thumb" data-src="/public/images/interns-whiteboard.png" aria-label="View whiteboard">
                   <img src="/public/images/interns-whiteboard.png" alt="" />
                 </button>
               </div>
             </div>
+            </div>
           </div>
         </article>
 
-        <!-- Current Work: Gateway + WriteYourLawmaker side by side -->
+        <!-- Kutztown -->
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content timeline-content-side">
+            <div class="timeline-side-text">
+              <time class="timeline-date">2020 – 2024</time>
+              <h3 class="timeline-title">Kutztown University</h3>
+              <p>
+                I was honored to receive the <strong>Graduation Award for Academic Excellence</strong> in Computer Science— 
+                an award given to only one student each year across the entire department. It meant the world to me, 
+                especially after years of late nights debugging and early mornings in the lab.
+              </p>
+            </div>
+            <div class="timeline-side-media">
+              <div class="timeline-photo timeline-photo-dual">
+                <img src="/public/images/kutztown-certificate.png" alt="Kutztown University Graduation Award for Academic Excellence" />
+                <img src="/public/images/kutztown-award-photo.png" alt="Rachel at Kutztown award ceremony" />
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Pet Sitting -->
         <article class="timeline-item timeline-item-last">
           <div class="timeline-marker"></div>
-          <div class="timeline-content timeline-content-split">
-            <time class="timeline-date">2024 – Present</time>
-            <div class="timeline-split-grid">
-              <div class="timeline-split-card">
-                <h3 class="timeline-title">Software Developer at Gateway Ticketing Systems</h3>
-                <p>
-                  I build software that powers experiences for millions of visitors. 
-                  As VP of the DEI committee, I also help foster an inclusive culture where everyone can thrive.
-                </p>
-                <div class="timeline-photo">
-                  <img src="/public/images/womens-conference.png" alt="Rachel at women's conference in Philadelphia" />
-                </div>
-              </div>
-              <div class="timeline-split-card">
-                <h3 class="timeline-title">Co-Founder at WriteYourLawmaker</h3>
-                <p>
-                  We help people connect with their representatives and make their voices heard. 
-                  Compose your letter, choose a template, and we print and mail it to the officials you choose.
-                </p>
-                <a href="https://WriteYourLawmaker.com" target="_blank" rel="noopener noreferrer" class="timeline-split-link">
-                  <div class="timeline-photo">
-                    <img src="/public/images/wyl.png" alt="Write Your Lawmaker - Make your voice heard" />
-                  </div>
-                  <span class="timeline-split-cta">Visit WriteYourLawmaker.com →</span>
-                </a>
+          <div class="timeline-content timeline-content-side">
+            <div class="timeline-side-text">
+              <time class="timeline-date">2020 – 2024</time>
+              <h3 class="timeline-title">Pet Sitting Business</h3>
+              <p>
+                While juggling coursework at Kutztown, I started a pet-sitting business on the side. 
+                What began as a way to earn extra income turned into something I genuinely loved—getting to know 
+                furry friends and their families, and bringing a little peace of mind when people traveled. 
+                It taught me responsibility, time management, and that the best side hustles are the ones that 
+                don't feel like work.
+              </p>
+            </div>
+            <div class="timeline-side-media">
+              <div class="timeline-photo">
+                <img src="/public/images/pet-sitting.jpg" alt="Rachel with a tabby cat" />
               </div>
             </div>
           </div>
@@ -247,14 +271,14 @@
         <!-- Project cards - customize with your actual projects -->
         <article class="project-card">
           <div class="project-thumbnail">
-            <div class="project-placeholder">🎮</div>
+            <img src="/public/images/allthatglitters.png" alt="All That Glitters - alchemy puzzle game grid" />
           </div>
           <div class="project-info">
-            <h3 class="project-title">Project One</h3>
-            <p class="project-description">A brief description of your first game or project. What makes it special?</p>
+            <h3 class="project-title">All That Glitters</h3>
+            <p class="project-description">Convert lead to gold in this browser-based puzzle game—the alchemist's dream, one rune at a time.</p>
             <div class="project-links">
-              <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Play Live</a>
-              <a href="#" class="project-link project-link-gh" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://racheloalden.com/allthatglitters" class="project-link" target="_blank" rel="noopener noreferrer">Play Live</a>
+              <a href="https://github.com/Rayliva/allthatglitters" class="project-link project-link-gh" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </div>
         </article>

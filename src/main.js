@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initCarousels();
   initPolaroidWalls();
+  initCriticTyping();
 });
 
 /**
@@ -208,6 +209,50 @@ function initPolaroidWalls() {
 
     applyTransforms(null);
   });
+}
+
+/**
+ * Critic quote typing animation on hover
+ */
+function initCriticTyping() {
+  const criticEl = document.querySelector('.critic-hover');
+  if (!criticEl) return;
+
+  const quote = criticEl.dataset.criticQuote || '';
+  const typedEl = criticEl.querySelector('.critic-typed');
+  const tooltipEl = criticEl.querySelector('.critic-typing-tooltip');
+  if (!typedEl || !tooltipEl || !quote) return;
+
+  let typingId = null;
+  let isHovering = false;
+
+  function typeNextChar(index) {
+    if (!isHovering || index >= quote.length) {
+      return;
+    }
+    typedEl.textContent += quote[index];
+    typingId = setTimeout(() => typeNextChar(index + 1), 35);
+  }
+
+  function startTyping() {
+    isHovering = true;
+    criticEl.classList.add('is-active');
+    typedEl.textContent = '';
+    typeNextChar(0);
+  }
+
+  function stopTyping() {
+    isHovering = false;
+    if (typingId) {
+      clearTimeout(typingId);
+      typingId = null;
+    }
+    criticEl.classList.remove('is-active');
+    typedEl.textContent = '';
+  }
+
+  criticEl.addEventListener('mouseenter', startTyping);
+  criticEl.addEventListener('mouseleave', stopTyping);
 }
 
 /**
