@@ -248,6 +248,48 @@
       );
     }
 
+    .frame { cursor: pointer; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.92);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: pointer;
+    }
+    .lightbox.active { opacity: 1; visibility: visible; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+      transform: scale(0.92);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .lightbox.active img { transform: scale(1); }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: #a89880;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+    .lightbox-close:hover { color: #fff; }
+
     @media (max-width: 768px) {
       .gallery-piece { padding: 0 clamp(1.5rem, 6vw, 3rem); }
       .frame { padding: 10px; }
@@ -278,11 +320,35 @@
       <div class="gallery-piece">
         <div class="frame">
           <div class="frame-inner">
+            <img src="/public/images/fourleafclover.png" alt="Painting of a hand holding a four-leaf clover" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">Four-Leaf Clover</p>
+          <p class="placard-medium">Oil on canvas</p>
+        </div>
+      </div>
+
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
+            <img src="/public/images/applepainting.png" alt="Painting of a red apple" />
+          </div>
+        </div>
+        <div class="placard">
+          <p class="placard-title">Red Apple</p>
+          <p class="placard-medium">Oil on canvas</p>
+        </div>
+      </div>
+
+      <div class="gallery-piece">
+        <div class="frame">
+          <div class="frame-inner">
             <img src="/public/images/orangepainting.png" alt="Watercolor painting of oranges" />
           </div>
         </div>
         <div class="placard">
-          <p class="placard-title">Still Life with Oranges</p>
+          <p class="placard-title">Oranges</p>
           <p class="placard-medium">Watercolor on paper</p>
         </div>
       </div>
@@ -294,8 +360,8 @@
           </div>
         </div>
         <div class="placard">
-          <p class="placard-title">Lemons on Linen</p>
-          <p class="placard-medium">Watercolor on paper</p>
+          <p class="placard-title">Lemon</p>
+          <p class="placard-medium">Acrylic on canvas</p>
         </div>
       </div>
 
@@ -306,7 +372,7 @@
           </div>
         </div>
         <div class="placard">
-          <p class="placard-title">de_inferno</p>
+          <p class="placard-title">CSGO Map</p>
           <p class="placard-medium">Acrylic on canvas</p>
         </div>
       </div>
@@ -319,18 +385,6 @@
         </div>
         <div class="placard">
           <p class="placard-title">The Blue Chair</p>
-          <p class="placard-medium">Watercolor on paper</p>
-        </div>
-      </div>
-
-      <div class="gallery-piece">
-        <div class="frame">
-          <div class="frame-inner">
-            <img src="/public/images/applepainting.png" alt="Painting of a red apple" />
-          </div>
-        </div>
-        <div class="placard">
-          <p class="placard-title">Study of a Red Apple</p>
           <p class="placard-medium">Watercolor on paper</p>
         </div>
       </div>
@@ -351,6 +405,11 @@
 
   <div class="floor"></div>
 
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="" />
+  </div>
+
   <script>
     const gallery = document.querySelector('.gallery-scroll');
     gallery.addEventListener('wheel', (e) => {
@@ -359,6 +418,23 @@
         gallery.scrollBy({ left: e.deltaY * 2.5, behavior: 'auto' });
       }
     }, { passive: false });
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    document.querySelectorAll('.frame').forEach(frame => {
+      frame.addEventListener('click', () => {
+        const img = frame.querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
   </script>
 </body>
 </html>

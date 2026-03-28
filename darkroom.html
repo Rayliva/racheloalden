@@ -64,9 +64,11 @@
     .darkroom {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 6rem 2rem;
+      gap: 3.5rem;
       position: relative;
       z-index: 2;
     }
@@ -75,13 +77,15 @@
       position: relative;
       width: 100%;
       max-width: 1100px;
-      min-height: 380px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       gap: clamp(1rem, 3.5vw, 3rem);
       padding-top: 14px;
     }
+
+    .clothesline.row-2 { transform: translateX(35px); }
+    .clothesline.row-3 { transform: translateX(-25px); }
 
     .clothesline::before {
       content: '';
@@ -159,13 +163,58 @@
       background: #1a1612;
     }
 
+    .photo { cursor: pointer; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.94);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: pointer;
+    }
+    .lightbox.active { opacity: 1; visibility: visible; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+      transform: scale(0.92);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .lightbox.active img { transform: scale(1); }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: #6b5544;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+    .lightbox-close:hover { color: #c9a882; }
+
     @media (max-width: 640px) {
+      .darkroom { gap: 2rem; }
       .clothesline {
         flex-wrap: wrap;
         gap: 2.5rem 1.5rem;
         padding-top: 2rem;
         justify-content: center;
       }
+      .clothesline.row-2,
+      .clothesline.row-3 { transform: translateX(0); }
       .clothesline::before { display: none; }
       .polaroid-frame img { width: 120px; }
     }
@@ -213,6 +262,97 @@
         </div>
       </div>
     </div>
+
+    <div class="clothesline row-2">
+      <div class="photo" style="--rot: 3deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/lilyphoto.png" alt="Lily flower in the rain" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: -2.5deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/sunsetportrait.png" alt="Portrait at sunset" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: 1.5deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/daisyphoto.png" alt="Daisy with raindrops" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: -3.5deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/dogportrait.png" alt="Dog with flowers" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: 2deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/animal-services-3.png" alt="Animal portrait" />
+        </div>
+      </div>
+    </div>
+
+    <div class="clothesline row-3">
+      <div class="photo" style="--rot: -1deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/animal-services-10.png" alt="Animal portrait" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: 4deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/animal-services-14.png" alt="Animal portrait" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: -3deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/animal-services-19.png" alt="Animal portrait" />
+        </div>
+      </div>
+
+      <div class="photo" style="--rot: 1deg">
+        <div class="clip"></div>
+        <div class="polaroid-frame">
+          <img src="/public/images/animal-services-21.png" alt="Animal portrait" />
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    document.querySelectorAll('.photo').forEach(photo => {
+      photo.addEventListener('click', () => {
+        const img = photo.querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
