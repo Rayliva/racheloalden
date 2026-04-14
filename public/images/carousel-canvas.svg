@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="Carousel Canvas thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#18181b"/>
+      <stop offset="100%" style="stop-color:#27272a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" rx="24" fill="url(#bg)"/>
+  <rect x="120" y="80" width="560" height="340" rx="16" fill="#fafafa" stroke="#3f3f46" stroke-width="3"/>
+  <path d="M160 320 Q 220 180 300 260 T 480 200 T 640 280" fill="none" stroke="#10b981" stroke-width="14" stroke-linecap="round"/>
+  <path d="M200 380 Q 340 300 420 360 T 580 320" fill="none" stroke="#6366f1" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="520" cy="160" r="36" fill="#fbbf24" opacity="0.9"/>
+  <path d="M180 140 L 220 200 L 140 200 Z" fill="#f472b6" opacity="0.85"/>
+</svg>
